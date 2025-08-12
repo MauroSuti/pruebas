@@ -1,7 +1,57 @@
-
-
 <html>
+<head>
+    <title>hola</title>
+    <style>
+        body {
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            background-color: #90EE90;
+        }
+        h1 {
+            color: blue;
+            text-align: center;
+        }
+        #searchContainer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .number {
+            margin: 10px;
+            display: inline-block;
+            font-size: 18px;
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
+
+    <h1>Mi página</h1>
+
+    <div id="searchContainer">
+        <input type="text" id="searchBox" placeholder="Buscar número (1-100)">
+        <button onclick="buscar()">Buscar</button>
+    </div>
+
+    <!-- Números del 1 al 100 -->
+    <div id="numbersContainer">
+        <script>
+            for (let i = 1; i <= 100; i++) {
+                document.write(`<span class="number" id="num${i}">${i}</span>`);
+            }
+        </script>
+    </div>
+
+    <script>
+        function buscar() {
+            let valor = document.getElementById("searchBox").value.trim();
+            let elemento = document.getElementById("num" + valor);
+            if (elemento) {
+                elemento.scrollIntoView({ behavior: "smooth", block: "center" });
+                elemento.style.backgroundColor = "yellow";
+                setTimeout(() => elemento.style.backgroundColor = "", 2000);
+            } else {
+                alert("Número no encontrado (debe ser del 1 al 100).");
+            }
+        }
+    </script>
+
 </body>
 </html>
