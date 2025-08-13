@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Auritri</title>
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
   <!-- Fuente épica (Google Fonts) -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 
@@ -78,14 +81,13 @@
       padding:22px;
     }
 
-    /* Panels (subventanas) */
     .panel{
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border:1px solid rgba(255,255,255,0.03);
       padding:20px;
       border-radius:12px;
       margin-bottom:20px;
-      display:none; /* se muestran con JS */
+      display:none;
     }
     .panel.show{display:block}
 
@@ -100,16 +102,17 @@
       padding:12px;
       border-radius:8px;
       text-align:center;
+      background-size:cover;
+      background-position:center;
     }
-    .member h4{margin:6px 0 2px}
-    .member p{margin:0; color:var(--muted); font-size:0.92rem}
+    .member h4{margin:6px 0 2px; background:rgba(0,0,0,0.6); display:inline-block; padding:2px 6px; border-radius:4px;}
+    .member p{margin:0; color:var(--muted); font-size:0.92rem; background:rgba(0,0,0,0.6); display:inline-block; padding:2px 6px; border-radius:4px;}
 
     .history-text{
       line-height:1.6;
       color:#dfe6e8;
     }
 
-    /* Gallery */
     .gallery{
       display:grid;
       grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
@@ -128,10 +131,10 @@
     }
 
     .logo {
-      max-width: 150px; /* Ajusta el ancho máximo */
-      height: auto;     /* Mantiene proporción */
-      display: block;   /* Para que se pueda centrar */
-      margin: 0 auto;   /* Centra horizontalmente */
+      max-width: 150px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
     }
 
     .photo img{width:100%; height:100%; object-fit:cover; display:block}
@@ -139,7 +142,6 @@
       position:absolute; left:8px; bottom:8px; background:rgba(0,0,0,0.5); padding:6px 8px; border-radius:6px; font-size:0.82rem;
     }
 
-    /* Merch */
     .merch-grid{
       display:grid;
       grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
@@ -155,8 +157,21 @@
       max-width:100%;
       border-radius:6px;
     }
+    .buy-button{
+      display:inline-block;
+      margin-top:8px;
+      background:var(--accent);
+      color:white;
+      padding:8px 14px;
+      border-radius:6px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:transform 0.2s;
+    }
+    .buy-button:hover{
+      transform:scale(1.05);
+    }
 
-    /* Footer */
     footer{ 
       text-align:center; 
       color:var(--muted); 
@@ -177,13 +192,11 @@
       transform:scale(1.2);
     }
 
-    /* Responsive tweaks */
     @media (max-width:600px){
       h1.site-title{font-size:2rem}
       .controls button{padding:8px 12px}
     }
 
-    /* Small helper highlight animation */
     @keyframes flash {
       0%{box-shadow:0 0 0 rgba(198,40,40,0)}
       50%{box-shadow:0 0 18px rgba(198,40,40,0.28)}
@@ -209,56 +222,48 @@
 
   <main class="container">
 
-    <!-- Panel Miembros -->
     <section id="members" class="panel" tabindex="0">
       <h2>Miembros</h2>
-      <p class="history-text">Acá podés poner la lista de miembros. Reemplazá los ejemplos por los nombres, roles y una breve bio.</p>
+      <p class="history-text">Acá podés poner la lista de miembros...</p>
 
       <div class="members-list" id="membersList">
-        <div class="member">
+        <div class="member" style="background-image:url('fondo-corina.jpg')">
           <h4>Corina</h4>
           <p>Voz</p>
         </div>
-        <div class="member">
+        <div class="member" style="background-image:url('fondo-marcos.jpg')">
           <h4>Marcos</h4>
           <p>Guitarra</p>
         </div>
-        <div class="member">
+        <div class="member" style="background-image:url('fondo-santiago.jpg')">
           <h4>Santiago</h4>
           <p>Guitarra</p>
         </div>
-        <div class="member">
+        <div class="member" style="background-image:url('fondo-agustin.jpg')">
           <h4>Agustín</h4>
           <p>Batería</p>
         </div>
-        <div class="member">
+        <div class="member" style="background-image:url('fondo-mauro.jpg')">
           <h4>Mauro</h4>
           <p>Bajo</p>
         </div>
       </div>
-
     </section>
 
-    <!-- Panel Historia -->
     <section id="history" class="panel" tabindex="0">
       <h2>Historia</h2>
-      <p class="history-text">Escribí la historia de la banda aquí. Podés hacer varios párrafos conteniendo anécdotas, discos, fechas y datos interesantes. Este texto es de ejemplo para que veas el formato.</p>
-
-      <p class="history-text">Año 1 — Fundada. Año 2 — Primer show. Año 3 — Gira regional. Reemplazá todo esto con tu contenido.</p>
+      <p class="history-text">Escribí la historia de la banda aquí...</p>
     </section>
 
-    <!-- Panel Fotografías -->
     <section id="photos" class="panel" tabindex="0">
       <h2>Fotografías</h2>
-      <p class="history-text">Sustituí las imágenes de ejemplo por tus fotos...</p>
-
+      <p class="history-text">Sustituí las imágenes...</p>
       <div class="gallery" id="gallery">
         <div class="photo"><img src="https://via.placeholder.com/400x300?text=Foto+1" alt="Foto 1"><div class="caption">Foto 1</div></div>
         <div class="photo"><img src="https://via.placeholder.com/400x300?text=Foto+2" alt="Foto 2"><div class="caption">Foto 2</div></div>
       </div>
     </section>
 
-    <!-- Panel Merch -->
     <section id="merch" class="panel" tabindex="0">
       <h2>Merch</h2>
       <div class="merch-grid">
@@ -266,21 +271,23 @@
           <img src="gorro.jpg" alt="Gorro">
           <h4>Gorro</h4>
           <p>$500</p>
+          <a class="buy-button" href="https://wa.me/5491123456789?text=Hola%20quiero%20comprar%20el%20Gorro" target="_blank">Comprar</a>
         </div>
         <div class="item">
           <img src="remera.jpg" alt="Remera">
           <h4>Remera</h4>
           <p>$1200</p>
+          <a class="buy-button" href="https://wa.me/5491123456789?text=Hola%20quiero%20comprar%20la%20Remera" target="_blank">Comprar</a>
         </div>
         <div class="item">
           <img src="canguro.jpg" alt="Canguro">
           <h4>Canguro</h4>
           <p>$2000</p>
+          <a class="buy-button" href="https://wa.me/5491123456789?text=Hola%20quiero%20comprar%20el%20Canguro" target="_blank">Comprar</a>
         </div>
       </div>
     </section>
 
-    <!-- Panel Contacto -->
     <section id="contact" class="panel" tabindex="0">
       <h2>Contacto</h2>
       <form action="mailto:tuemail@example.com" method="post" enctype="text/plain">
@@ -295,9 +302,9 @@
 
   <footer>
     <div class="social-links">
-      <a href="https://instagram.com/tu_banda" target="_blank"><img src="icon-instagram.svg" alt="Instagram"></a>
-      <a href="https://youtube.com/tu_banda" target="_blank"><img src="icon-youtube.svg" alt="YouTube"></a>
-      <a href="https://spotify.com/tu_banda" target="_blank"><img src="icon-spotify.svg" alt="Spotify"></a>
+      <a href="https://instagram.com/auritri" target="_blank"><img src="icon-instagram.png" alt="Instagram"></a>
+      <a href="https://youtube.com/@auritri" target="_blank"><img src="icon-youtube.png" alt="YouTube"></a>
+      <a href="https://open.spotify.com/artist/auritri" target="_blank"><img src="icon-spotify.png" alt="Spotify"></a>
     </div>
     Creada con ❤ por Auritri
   </footer>
