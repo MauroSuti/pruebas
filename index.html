@@ -128,28 +128,55 @@
     }
 
     .logo {
-  max-width: 150px; /* Ajusta el ancho máximo */
-  height: auto;     /* Mantiene proporción */
-  display: block;   /* Para que se pueda centrar */
-  margin: 0 auto;   /* Centra horizontalmente */
-}
+      max-width: 150px; /* Ajusta el ancho máximo */
+      height: auto;     /* Mantiene proporción */
+      display: block;   /* Para que se pueda centrar */
+      margin: 0 auto;   /* Centra horizontalmente */
+    }
 
-    
     .photo img{width:100%; height:100%; object-fit:cover; display:block}
     .photo .caption{
       position:absolute; left:8px; bottom:8px; background:rgba(0,0,0,0.5); padding:6px 8px; border-radius:6px; font-size:0.82rem;
     }
 
+    /* Merch */
+    .merch-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+    }
+    .merch-grid .item{
+      background:rgba(255,255,255,0.02);
+      border-radius:8px;
+      padding:12px;
+      text-align:center;
+    }
+    .merch-grid .item img{
+      max-width:100%;
+      border-radius:6px;
+    }
+
     /* Footer */
-    footer{ text-align:center; color:var(--muted); margin-top:12px; font-size:0.9rem }
+    footer{ 
+      text-align:center; 
+      color:var(--muted); 
+      margin-top:12px; 
+      font-size:0.9rem 
+    }
+    .social-links{
+      margin:12px 0;
+    }
+    .social-links a img{
+      width:28px;
+      height:28px;
+      margin:0 6px;
+      filter:invert(1);
+      transition:transform 0.2s;
+    }
+    .social-links a img:hover{
+      transform:scale(1.2);
+    }
 
-
-    <div class="social-links">
-      <a href="https://instagram.com/tu_banda" target="_blank"><img src="icon-instagram.svg" alt="Instagram"></a>
-      <a href="https://youtube.com/tu_banda" target="_blank"><img src="icon-youtube.svg" alt="YouTube"></a>
-      <a href="https://spotify.com/tu_banda" target="_blank"><img src="icon-spotify.svg" alt="Spotify"></a>
-    </div>
-    
     /* Responsive tweaks */
     @media (max-width:600px){
       h1.site-title{font-size:2rem}
@@ -175,10 +202,10 @@
       <button data-target="members" class="active">Miembros</button>
       <button data-target="history">Historia</button>
       <button data-target="photos">Fotografías</button>
+      <button data-target="merch">Merch</button>
+      <button data-target="contact">Contacto</button>
     </nav>
   </header>
-
-
 
   <main class="container">
 
@@ -188,7 +215,6 @@
       <p class="history-text">Acá podés poner la lista de miembros. Reemplazá los ejemplos por los nombres, roles y una breve bio.</p>
 
       <div class="members-list" id="membersList">
-        <!-- Ejemplos: reemplazá / duplicá según necesites -->
         <div class="member">
           <h4>Corina</h4>
           <p>Voz</p>
@@ -224,95 +250,81 @@
     <!-- Panel Fotografías -->
     <section id="photos" class="panel" tabindex="0">
       <h2>Fotografías</h2>
-      <p class="history-text">Sustituí las imágenes de ejemplo por tus fotos. Para agregar una foto, pon el archivo en la misma carpeta que este HTML y cambia el atributo <code>src</code> de la etiqueta <code>&lt;img&gt;</code>.</p>
+      <p class="history-text">Sustituí las imágenes de ejemplo por tus fotos...</p>
 
       <div class="gallery" id="gallery">
-        <!-- Imágenes de ejemplo: reemplazá src por tus archivos reales -->
         <div class="photo"><img src="https://via.placeholder.com/400x300?text=Foto+1" alt="Foto 1"><div class="caption">Foto 1</div></div>
         <div class="photo"><img src="https://via.placeholder.com/400x300?text=Foto+2" alt="Foto 2"><div class="caption">Foto 2</div></div>
-        <div class="photo"><img src="https://via.placeholder.com/400x300?text=Foto+3" alt="Foto 3"><div class="caption">Foto 3</div></div>
-        <div class="photo"><img src="https://via.placeholder.com/400x300?text=Foto+4" alt="Foto 4"><div class="caption">Foto 4</div></div>
-        <div class="photo"><img src="https://via.placeholder.com/400x300?text=Foto+5" alt="Foto 5"><div class="caption">Foto 5</div></div>
-        <div class="photo"><img src="https://via.placeholder.com/400x300?text=Foto+6" alt="Foto 6"><div class="caption">Foto 6</div></div>
       </div>
+    </section>
 
+    <!-- Panel Merch -->
+    <section id="merch" class="panel" tabindex="0">
+      <h2>Merch</h2>
+      <div class="merch-grid">
+        <div class="item">
+          <img src="gorro.jpg" alt="Gorro">
+          <h4>Gorro</h4>
+          <p>$500</p>
+        </div>
+        <div class="item">
+          <img src="remera.jpg" alt="Remera">
+          <h4>Remera</h4>
+          <p>$1200</p>
+        </div>
+        <div class="item">
+          <img src="canguro.jpg" alt="Canguro">
+          <h4>Canguro</h4>
+          <p>$2000</p>
+        </div>
+      </div>
+    </section>
 
-
-      <section id="merch" class="panel" tabindex="0">
-  <h2>Merch</h2>
-  <div class="merch-grid">
-    <div class="item">
-      <img src="gorro.jpg" alt="Gorro">
-      <h4>Gorro</h4>
-      <p>$500</p>
-    </div>
-    <div class="item">
-      <img src="remera.jpg" alt="Remera">
-      <h4>Remera</h4>
-      <p>$1200</p>
-    </div>
-    <div class="item">
-      <img src="canguro.jpg" alt="Canguro">
-      <h4>Canguro</h4>
-      <p>$2000</p>
-    </div>
-  </div>
-
-      
+    <!-- Panel Contacto -->
+    <section id="contact" class="panel" tabindex="0">
+      <h2>Contacto</h2>
+      <form action="mailto:tuemail@example.com" method="post" enctype="text/plain">
+        <label>Nombre:<br><input type="text" name="nombre"></label><br>
+        <label>Email:<br><input type="email" name="email"></label><br>
+        <label>Mensaje:<br><textarea name="mensaje"></textarea></label><br>
+        <button type="submit">Enviar</button>
+      </form>
     </section>
 
   </main>
 
   <footer>
-    Creada con ❤ por Auritri — editá este archivo para agregar más secciones y contenido.
+    <div class="social-links">
+      <a href="https://instagram.com/tu_banda" target="_blank"><img src="icon-instagram.svg" alt="Instagram"></a>
+      <a href="https://youtube.com/tu_banda" target="_blank"><img src="icon-youtube.svg" alt="YouTube"></a>
+      <a href="https://spotify.com/tu_banda" target="_blank"><img src="icon-spotify.svg" alt="Spotify"></a>
+    </div>
+    Creada con ❤ por Auritri
   </footer>
 
   <script>
-    // Navegación entre subventanas (tabs/paneles)
     const buttons = document.querySelectorAll('.controls button');
     const panels = document.querySelectorAll('.panel');
 
     function showPanel(id){
       panels.forEach(p => { p.classList.toggle('show', p.id === id); });
       buttons.forEach(b => b.classList.toggle('active', b.dataset.target === id));
-      // pequeño efecto de pulso en el panel
       const active = document.getElementById(id);
       if(active){
         active.classList.add('pulse');
         setTimeout(()=> active.classList.remove('pulse'), 1000);
         active.focus({preventScroll:true});
-        //active.scrollIntoView({behavior:'smooth', block:'start'});
       }
     }
 
     buttons.forEach(btn => btn.addEventListener('click', ()=> showPanel(btn.dataset.target)));
 
-    // Accesibilidad: permitir cambiar con flechas izquierda/derecha cuando el nav está enfocado
     document.querySelector('.controls').addEventListener('keydown', (e)=>{
       const idx = Array.from(buttons).findIndex(b => b.classList.contains('active'));
       if(e.key === 'ArrowRight') buttons[(idx+1) % buttons.length].click();
       if(e.key === 'ArrowLeft') buttons[(idx-1 + buttons.length) % buttons.length].click();
     });
 
-    // --- Pequeña utilidad: agregar miembros dinámicamente (ejemplo) ---
-    // Podés borrar este bloque si querés escribir los miembros directamente en el HTML.
-    const membersData = [
-      {name:'Corina', role:'Voz'},
-      {name:'Marcos', role:'Guitarra'},
-      {name:'Agustín', role:'Batería'},
-      {name:'Santiago', role:'Guitarra'},
-      {name:'Mauro', role:'Bajo'},
-    ];
-    const list = document.getElementById('membersList');
-    // Si querés añadir más miembros desde JS, descomentá y editá el array de arriba
-    // list.innerHTML = '';
-    // membersData.forEach(m => {
-    //   const div = document.createElement('div'); div.className='member';
-    //   div.innerHTML = `<h4>${m.name}</h4><p>${m.role}</p>`;
-    //   list.appendChild(div);
-    // });
-
-    // Drag & drop simple para la galería (arrastrá archivos desde tu PC)
     const gallery = document.getElementById('gallery');
     ['dragenter','dragover','dragleave','drop'].forEach(ev => {
       gallery.addEventListener(ev, e => e.preventDefault());
@@ -328,22 +340,14 @@
       }
     });
 
-    // Atajo: usar "m", "h", "p" para ir a Miembros/Historia/Fotografías
     document.addEventListener('keydown', (e)=>{
       if(e.target.tagName === 'INPUT' || e.target.isContentEditable) return;
       if(e.key.toLowerCase() === 'm') showPanel('members');
       if(e.key.toLowerCase() === 'h') showPanel('history');
       if(e.key.toLowerCase() === 'p') showPanel('photos');
+      if(e.key.toLowerCase() === 'c') showPanel('contact');
     });
   </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
