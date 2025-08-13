@@ -10,345 +10,134 @@
 
   <style>
     :root{
-      --bg:#0b0b0c;
-      --panel:#0f1416;
-      --accent:#c62828;
-      --muted:#9aa3a6;
-      --glass: rgba(255,255,255,0.03);
+      --color-fondo: #111;
+      --color-texto: #fff;
+      --color-acento: #e50914;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: "Cinzel", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient( circle at 10% 10%, #111 0%, var(--bg) 40% ), linear-gradient(180deg, rgba(0,0,0,0.2), transparent 30%);
-      color:#eee;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      min-height:100vh;
-      padding-bottom:40px;
+    body {
+      font-family: 'Cinzel', serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
     }
-
-    header{
-      padding:28px 18px 12px;
-      text-align:center;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      position:sticky;
-      top:0;
-      background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2));
-      backdrop-filter: blur(4px);
-      z-index:10;
+    header {
+      padding: 1rem;
+      text-align: center;
+      background-color: #000;
     }
-
-    h1.site-title{
-      margin:0;
-      font-size:3rem;
-      letter-spacing:2px;
-      color:var(--accent);
-      text-shadow:0 4px 20px rgba(0,0,0,0.7);
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
     }
-    p.tagline{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-size:0.95rem;
+    section {
+      padding: 2rem;
     }
-
-    nav.controls{
-      display:flex;
-      gap:10px;
-      justify-content:center;
-      margin-top:16px;
-      flex-wrap:wrap;
+    .merch-item {
+      border: 1px solid #444;
+      padding: 1rem;
+      margin: 1rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .controls button{
-      background:var(--glass);
-      border:1px solid rgba(255,255,255,0.05);
-      color:#fff;
-      padding:10px 16px;
-      font-weight:600;
-      border-radius:10px;
-      cursor:pointer;
-      transition: all .18s ease;
+    .merch-item button {
+      background-color: var(--color-acento);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: bold;
     }
-    .controls button:hover{transform:translateY(-3px); box-shadow:0 6px 18px rgba(0,0,0,0.6)}
-    .controls button.active{background:linear-gradient(90deg, rgba(198,40,40,0.15), rgba(198,40,40,0.06)); border-color:var(--accent)}
-
-    main.container{
-      max-width:1100px;
-      margin:30px auto;
-      padding:22px;
+    .merch-item button:hover {
+      background-color: #b00610;
     }
-
-    /* Panels (subventanas) */
-    .panel{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.03);
-      padding:20px;
-      border-radius:12px;
-      margin-bottom:20px;
-      display:none; /* se muestran con JS */
+    .member {
+      position: relative;
+      padding: 2rem;
+      margin-bottom: 1rem;
+      background-size: cover;
+      background-position: center;
+      color: white;
     }
-    .panel.show{display:block}
-
-    .members-list{
-      display:grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap:16px;
-      margin-top:12px;
+    .member::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.6);
     }
-    .member{
-      background:rgba(255,255,255,0.02);
-      padding:12px;
-      border-radius:8px;
-      text-align:center;
+    .member h3 {
+      position: relative;
+      margin: 0;
     }
-    .member h4{margin:6px 0 2px}
-    .member p{margin:0; color:var(--muted); font-size:0.92rem}
-
-    .history-text{
-      line-height:1.6;
-      color:#dfe6e8;
+    footer {
+      text-align: center;
+      padding: 1rem;
+      border-top: 1px solid #444;
     }
-
-    /* Gallery */
-    .gallery{
-      display:grid;
-      grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
-      gap:12px;
-      margin-top:12px;
+    footer a {
+      color: var(--color-acento);
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: bold;
     }
-    .photo{
-      background:#111;
-      border-radius:8px;
-      overflow:hidden;
-      min-height:100px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
+    footer a:hover {
+      text-decoration: underline;
     }
-
-    .logo {
-      max-width: 150px; /* Ajusta el ancho máximo */
-      height: auto;     /* Mantiene proporción */
-      display: block;   /* Para que se pueda centrar */
-      margin: 0 auto;   /* Centra horizontalmente */
-    }
-
-    .photo img{width:100%; height:100%; object-fit:cover; display:block}
-    .photo .caption{
-      position:absolute; left:8px; bottom:8px; background:rgba(0,0,0,0.5); padding:6px 8px; border-radius:6px; font-size:0.82rem;
-    }
-
-    /* Merch */
-    .merch-grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap:16px;
-    }
-    .merch-grid .item{
-      background:rgba(255,255,255,0.02);
-      border-radius:8px;
-      padding:12px;
-      text-align:center;
-    }
-    .merch-grid .item img{
-      max-width:100%;
-      border-radius:6px;
-    }
-
-    /* Footer */
-    footer{ 
-      text-align:center; 
-      color:var(--muted); 
-      margin-top:12px; 
-      font-size:0.9rem 
-    }
-    .social-links{
-      margin:12px 0;
-    }
-    .social-links a img{
-      width:28px;
-      height:28px;
-      margin:0 6px;
-      filter:invert(1);
-      transition:transform 0.2s;
-    }
-    .social-links a img:hover{
-      transform:scale(1.2);
-    }
-
-    /* Responsive tweaks */
-    @media (max-width:600px){
-      h1.site-title{font-size:2rem}
-      .controls button{padding:8px 12px}
-    }
-
-    /* Small helper highlight animation */
-    @keyframes flash {
-      0%{box-shadow:0 0 0 rgba(198,40,40,0)}
-      50%{box-shadow:0 0 18px rgba(198,40,40,0.28)}
-      100%{box-shadow:0 0 0 rgba(198,40,40,0)}
-    }
-    .pulse{animation:flash 1s ease}
   </style>
 </head>
 <body>
 
-  <header>
-    <img src="Relieve en negro.png" alt="Auritri" class="logo">
-    <p class="tagline">Somos Auritri, somos una banda</p>
+<header>
+  <h1>Auritri</h1>
+</header>
 
-    <nav class="controls" aria-label="Navegación principal">
-      <button data-target="members" class="active">Miembros</button>
-      <button data-target="history">Historia</button>
-      <button data-target="photos">Fotografías</button>
-      <button data-target="merch">Merch</button>
-      <button data-target="contact">Contacto</button>
-    </nav>
-  </header>
+<section id="merch">
+  <h2>Merchandising</h2>
+  <div class="merch-item">
+    <span>Gorro</span>
+    <button onclick="buyProduct('Gorro')">Comprar</button>
+  </div>
+  <div class="merch-item">
+    <span>Remera</span>
+    <button onclick="buyProduct('Remera')">Comprar</button>
+  </div>
+  <div class="merch-item">
+    <span>Taza</span>
+    <button onclick="buyProduct('Taza')">Comprar</button>
+  </div>
+</section>
 
-  <main class="container">
+<section id="members">
+  <h2>Miembros</h2>
+  <div class="member" style="background-image: url('microfono.jpg');">
+    <h3>Cantante</h3>
+  </div>
+  <div class="member" style="background-image: url('guitarra.jpg');">
+    <h3>Guitarrista 1</h3>
+  </div>
+  <div class="member" style="background-image: url('guitarra.jpg');">
+    <h3>Guitarrista 2</h3>
+  </div>
+  <div class="member" style="background-image: url('bateria.jpg');">
+    <h3>Baterista</h3>
+  </div>
+  <div class="member" style="background-image: url('bajo.jpg');">
+    <h3>Bajista</h3>
+  </div>
+</section>
 
-    <!-- Panel Historia -->
-    <section id="history" class="panel show" tabindex="0">
-      <h2>Historia</h2>
-      <p class="history-text">Escribí la historia de la banda aquí. Podés hacer varios párrafos conteniendo anécdotas, discos, fechas y datos interesantes. Este texto es de ejemplo para que veas el formato.</p>
+<footer>
+  <a href="https://www.instagram.com/auritrioficial?igsh=MTdsbW9oM2NiMmZncg==" target="_blank">Instagram</a>
+  <a href="https://youtube.com/@auritri?si=YxcDJienKTQ0lVIY" target="_blank">YouTube</a>
+</footer>
 
-      <p class="history-text">Año 1 — Fundada. Año 2 — Primer show. Año 3 — Gira regional. Reemplazá todo esto con tu contenido.</p>
-    </section>
-
-    <!-- Panel Miembros -->
-    <section id="members" class="panel" tabindex="0">
-      <h2>Miembros</h2>
-      <p class="history-text">Acá podés poner la lista de miembros. Reemplazá los ejemplos por los nombres, roles y una breve bio.</p>
-
-      <div class="members-list" id="membersList">
-        <div class="member">
-          <h4>Corina</h4>
-          <p>Voz</p>
-        </div>
-        <div class="member">
-          <h4>Marcos</h4>
-          <p>Guitarra</p>
-        </div>
-        <div class="member">
-          <h4>Santiago</h4>
-          <p>Guitarra</p>
-        </div>
-        <div class="member">
-          <h4>Agustín</h4>
-          <p>Batería</p>
-        </div>
-        <div class="member">
-          <h4>Mauro</h4>
-          <p>Bajo</p>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- Panel Fotografías -->
-    <section id="photos" class="panel" tabindex="0">
-      <h2>Fotografías</h2>
-      <p class="history-text">Sustituí las imágenes de ejemplo por tus fotos...</p>
-
-      <div class="gallery" id="gallery">
-        <div class="photo"><img src="https://via.placeholder.com/400x300?text=Foto+1" alt="Foto 1"><div class="caption">Foto 1</div></div>
-        <div class="photo"><img src="https://via.placeholder.com/400x300?text=Foto+2" alt="Foto 2"><div class="caption">Foto 2</div></div>
-      </div>
-    </section>
-
-    <!-- Panel Merch -->
-    <section id="merch" class="panel" tabindex="0">
-      <h2>Merch</h2>
-      <div class="merch-grid">
-        <div class="item">
-          <img src="gorro.jpg" alt="Gorro">
-          <h4>Gorro</h4>
-          <p>$500</p>
-        </div>
-        <div class="item">
-          <img src="remera.jpg" alt="Remera">
-          <h4>Remera</h4>
-          <p>$1200</p>
-        </div>
-        <div class="item">
-          <img src="canguro.jpg" alt="Canguro">
-          <h4>Canguro</h4>
-          <p>$2000</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Panel Contacto -->
-    <section id="contact" class="panel" tabindex="0">
-      <h2>Contacto</h2>
-      <form action="mailto:tuemail@example.com" method="post" enctype="text/plain">
-        <label>Nombre:<br><input type="text" name="nombre"></label><br>
-        <label>Email:<br><input type="email" name="email"></label><br>
-        <label>Mensaje:<br><textarea name="mensaje"></textarea></label><br>
-        <button type="submit">Enviar</button>
-      </form>
-    </section>
-
-  </main>
-
-  <footer>
-    <div class="social-links">
-      <a href="https://instagram.com/tu_banda" target="_blank"><img src="icon-instagram.svg" alt="Instagram"></a>
-      <a href="https://youtube.com/tu_banda" target="_blank"><img src="icon-youtube.svg" alt="YouTube"></a>
-      <a href="https://spotify.com/tu_banda" target="_blank"><img src="icon-spotify.svg" alt="Spotify"></a>
-    </div>
-    Creada con ❤ por Auritri
-  </footer>
-
-  <script>
-    const buttons = document.querySelectorAll('.controls button');
-    const panels = document.querySelectorAll('.panel');
-
-    function showPanel(id){
-      panels.forEach(p => { p.classList.toggle('show', p.id === id); });
-      buttons.forEach(b => b.classList.toggle('active', b.dataset.target === id));
-      const active = document.getElementById(id);
-      if(active){
-        active.classList.add('pulse');
-        setTimeout(()=> active.classList.remove('pulse'), 1000);
-        active.focus({preventScroll:true});
-      }
-    }
-
-    buttons.forEach(btn => btn.addEventListener('click', ()=> showPanel(btn.dataset.target)));
-
-    document.querySelector('.controls').addEventListener('keydown', (e)=>{
-      const idx = Array.from(buttons).findIndex(b => b.classList.contains('active'));
-      if(e.key === 'ArrowRight') buttons[(idx+1) % buttons.length].click();
-      if(e.key === 'ArrowLeft') buttons[(idx-1 + buttons.length) % buttons.length].click();
-    });
-
-    const gallery = document.getElementById('gallery');
-    ['dragenter','dragover','dragleave','drop'].forEach(ev => {
-      gallery.addEventListener(ev, e => e.preventDefault());
-    });
-    gallery.addEventListener('drop', async (e)=>{
-      const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
-      for(const f of files){
-        const url = URL.createObjectURL(f);
-        const div = document.createElement('div'); div.className='photo';
-        const img = document.createElement('img'); img.src = url; img.alt = f.name;
-        const cap = document.createElement('div'); cap.className='caption'; cap.textContent = f.name;
-        div.appendChild(img); div.appendChild(cap); gallery.prepend(div);
-      }
-    });
-
-    document.addEventListener('keydown', (e)=>{
-      if(e.target.tagName === 'INPUT' || e.target.isContentEditable) return;
-      if(e.key.toLowerCase() === 'm') showPanel('members');
-      if(e.key.toLowerCase() === 'h') showPanel('history');
-      if(e.key.toLowerCase() === 'p') showPanel('photos');
-      if(e.key.toLowerCase() === 'c') showPanel('contact');
-    });
-  </script>
+<script>
+  function buyProduct(productName){
+    const mensaje = encodeURIComponent(`Hola, me interesaría comprar ${productName}`);
+    window.open(`https://wa.me/59896160371?text=${mensaje}`, '_blank');
+  }
+</script>
 
 </body>
 </html>
-
