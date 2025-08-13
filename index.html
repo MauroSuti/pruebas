@@ -192,7 +192,14 @@
     .social-links a img:hover{
       transform:scale(1.2);
     }
+    
+    @media (max-width: 600px){
+  .members-list{
+    grid-template-columns: 1fr; /* 1 columna en móviles */
+  }
+}
 
+    
     @media (max-width:600px){
       h1.site-title{font-size:2rem}
       .controls button{padding:8px 12px}
@@ -368,6 +375,7 @@
 
 </body>
 </html>
+
 
 
 
