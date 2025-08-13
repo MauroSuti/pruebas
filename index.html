@@ -93,9 +93,10 @@
 
     .members-list{
       display:grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      grid-template-columns: repeat(3, 1fr); /* máximo 3 columnas */
       gap:16px;
       margin-top:12px;
+      justify-content:center; /* centra la última fila si tiene menos de 3 miembros */
     }
     .member{
       background:rgba(255,255,255,0.02);
@@ -367,6 +368,7 @@
 
 </body>
 </html>
+
 
 
 
