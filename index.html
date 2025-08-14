@@ -37,15 +37,17 @@
    header {
   padding: 28px 18px 12px;
   text-align: center;
+  position: sticky;
+  top: 0;
   background: rgba(0,0,0,0.6);
   backdrop-filter: blur(4px);
   z-index: 10;
-  transition:
-    padding 0.4s ease-in-out,
-    backdrop-filter 0.4s ease-in-out,
+  min-height: 220px; /* en vez de height fija */
+  transition: 
+    padding 0.4s ease-in-out, 
+    min-height 0.4s ease-in-out, 
+    backdrop-filter 0.4s ease-in-out, 
     background 0.4s ease-in-out;
-  /* ❌ Quitar height fija */
-  height: auto;
 }
 
     h1.site-title{
@@ -105,8 +107,8 @@ header .tagline {
 
 header.shrink {
   padding: 14px 18px 6px;
+  min-height: 150px; /* se achica pero sigue visible */
   backdrop-filter: blur(8px);
-  height: auto; /* también auto aquí */
 }
 
 header.shrink .logo {
@@ -229,10 +231,12 @@ header.shrink .tagline {
       transform:scale(1.2);
     }
 
-    @media (max-width: 600px) {
+   @media (max-width: 600px) {
   header {
-    padding-top: 32px;
-    padding-bottom: 20px;
+    min-height: 260px; /* más alto en móviles verticales para la doble fila */
+  }
+  header.shrink {
+    min-height: 200px; /* achicado pero cómodo en vertical */
   }
 }
     
@@ -454,6 +458,7 @@ header.shrink .tagline {
 
 </body>
 </html>
+
 
 
 
