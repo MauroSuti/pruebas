@@ -93,10 +93,10 @@
 
     .members-list{
       display:grid;
-      grid-template-columns: repeat(3, 1fr); /* máximo 3 columnas */
+      grid-template-columns: repeat(3, 1fr);
       gap:16px;
       margin-top:12px;
-      justify-content:center; /* centra la última fila si tiene menos de 3 miembros */
+      justify-content:center;
     }
     .member{
       background:rgba(255,255,255,0.02);
@@ -139,9 +139,6 @@
     }
 
     .photo img{width:100%; height:100%; object-fit:cover; display:block}
-    .photo .caption{
-      position:absolute; left:8px; bottom:8px; background:rgba(0,0,0,0.5); padding:6px 8px; border-radius:6px; font-size:0.82rem;
-    }
 
     .merch-grid{
       display:grid;
@@ -194,12 +191,11 @@
     }
     
     @media (max-width: 600px){
-  .members-list{
-    grid-template-columns: 1fr; /* 1 columna en móviles */
-  }
-}
+      .members-list{
+        grid-template-columns: 1fr;
+      }
+    }
 
-    
     @media (max-width:600px){
       h1.site-title{font-size:2rem}
       .controls button{padding:8px 12px}
@@ -267,8 +263,7 @@
       <h2>Fotografías</h2>
       <p class="history-text">Sustituí las imágenes...</p>
       <div class="gallery" id="gallery">
-        <div class="photo"><img src="https://via.placeholder.com/400x300?text=Foto+1" alt="Foto 1"><div class="caption">Foto 1</div></div>
-        <div class="photo"><img src="https://via.placeholder.com/400x300?text=Foto+2" alt="Foto 2"><div class="caption">Foto 2</div></div>
+        <!-- Las imágenes se cargarán automáticamente desde GitHub -->
       </div>
     </section>
 
@@ -279,20 +274,19 @@
           <img src="gorro.jpg" alt="Gorro">
           <h4>Gorro</h4>
           <p>$500</p>
-          <a class="buy-button" href="https://wa.me/59896160371?text=Hola!%20Quiero%20comprar%20el%20gorro" target="_blank">Comprar</a></p>
+          <a class="buy-button" href="https://wa.me/59896160371?text=Hola!%20Quiero%20comprar%20el%20gorro" target="_blank">Comprar</a>
         </div>
         <div class="item">
           <img src="remera.jpg" alt="Remera">
           <h4>Remera</h4>
           <p>$1200</p>
-          <a class="buy-button" href="https://wa.me/59896160371?text=Hola!%20Quiero%20comprar%20la%20remera" target="_blank">Comprar</a></p>
-          
+          <a class="buy-button" href="https://wa.me/59896160371?text=Hola!%20Quiero%20comprar%20la%20remera" target="_blank">Comprar</a>
         </div>
         <div class="item">
           <img src="canguro.jpg" alt="Canguro">
           <h4>Canguro</h4>
           <p>$2000</p>
-          <a class="buy-button" href="https://wa.me/59896160371?text=Hola!%20Quiero%20comprar%20el%20canguro" target="_blank">Comprar</a></p>
+          <a class="buy-button" href="https://wa.me/59896160371?text=Hola!%20Quiero%20comprar%20el%20canguro" target="_blank">Comprar</a>
         </div>
       </div>
     </section>
@@ -307,7 +301,7 @@
       </form>
 
       <div style="margin-top: 15px;">
-        <a href="https://wa.me/59896160371?text=Hola!%20Quería%20comunicarme%20con%20ustedes%20" 
+        <a href="https://wa.me/59896160371?text=Hola!%20Quería%20comunicarme%20con%20ustedes" 
            target="_blank" 
            style="display:inline-flex; align-items:center; text-decoration:none; color:white; background:var(--accent); padding:8px 12px; border-radius:6px;">
           <img src="icon-whatsapp.png" alt="WhatsApp" style="width:20px; height:20px; margin-right:8px; filter:invert(1);">
@@ -349,7 +343,31 @@
       if(e.key === 'ArrowLeft') buttons[(idx-1 + buttons.length) % buttons.length].click();
     });
 
+    // ---- GALERÍA AUTOMÁTICA DESDE GITHUB ----
     const gallery = document.getElementById('gallery');
+    const user = 'MauroSuti'; // tu usuario de GitHub
+    const repo = 'pruebas';           // tu repo donde está la carpeta photos
+    const folder = 'photos';          // nombre de la carpeta con imágenes
+    const url = `https://api.github.com/repos/${user}/${repo}/contents/${folder}`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(files => {
+        files.forEach(file => {
+          if(file.type === 'file' && /\.(jpe?g|png|gif|webp)$/i.test(file.name)){
+            const div = document.createElement('div');
+            div.className = 'photo';
+            const img = document.createElement('img');
+            img.src = file.download_url;
+            img.alt = ''; // no mostramos el nombre
+            div.appendChild(img);
+            gallery.appendChild(div);
+          }
+        });
+      })
+      .catch(err => console.error('Error cargando imágenes:', err));
+
+    // Código drag & drop
     ['dragenter','dragover','dragleave','drop'].forEach(ev => {
       gallery.addEventListener(ev, e => e.preventDefault());
     });
@@ -358,9 +376,9 @@
       for(const f of files){
         const url = URL.createObjectURL(f);
         const div = document.createElement('div'); div.className='photo';
-        const img = document.createElement('img'); img.src = url; img.alt = f.name;
-        const cap = document.createElement('div'); cap.className='caption'; cap.textContent = f.name;
-        div.appendChild(img); div.appendChild(cap); gallery.prepend(div);
+        const img = document.createElement('img'); img.src = url; img.alt = '';
+        div.appendChild(img);
+        gallery.prepend(div);
       }
     });
 
@@ -375,4 +393,3 @@
 
 </body>
 </html>
-
