@@ -33,11 +33,22 @@
       padding-bottom:40px;
     }
 
-    header{ padding:28px 18px 12px; text-align:center; 
-           border-bottom: 1px solid rgba(255,255,255,0.04); 
-           position:sticky; top:0; 
-           background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2)); 
-           backdrop-filter: blur(4px); z-index:10; }
+   header {
+  padding: 28px 18px 12px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  position: sticky;
+  top: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 10;
+  height: 120px;
+  transition: 
+    padding 0.4s ease-in-out, 
+    height 0.4s ease-in-out, 
+    backdrop-filter 0.4s ease-in-out, 
+    background 0.4s ease-in-out;
+}
 
     h1.site-title{
       margin:0;
@@ -79,17 +90,33 @@
       padding-top: 140px; /* espacio para el header */
     }
 
-    header.shrink {
-      padding: 14px 18px 6px;
-      height: 70px; /* nuevo para que el cambio sea gradual */
+    header .logo {
+  max-width: 250px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  transition: max-width 0.4s ease-in-out;
 }
+
+header .tagline {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin: 6px 0 0;
+  transition: font-size 0.4s ease-in-out;
+}
+
+header.shrink {
+  padding: 14px 18px 6px;
+  height: 70px;
+  backdrop-filter: blur(8px); /* blur más intenso */
+}
+
 header.shrink .logo {
-  max-width: 125px; /* 50% de tamaño */
-  transition: max-width 0.3s ease;
+  max-width: 125px; /* logo se reduce al 50% */
 }
+
 header.shrink .tagline {
-  font-size: 0.75rem; /* 50% del original */
-  transition: font-size 0.3s ease;
+  font-size: 0.75rem; /* tagline más pequeño */
 }
 
     .panel{
@@ -422,6 +449,7 @@ header.shrink .tagline {
 
 </body>
 </html>
+
 
 
 
