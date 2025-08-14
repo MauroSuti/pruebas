@@ -86,13 +86,16 @@
     }
 
     header.shrink {
-  padding: 14px 18px 6px;
+      padding: 14px 18px 6px;
+      height: 70px; /* nuevo para que el cambio sea gradual */
 }
 header.shrink .logo {
   max-width: 125px; /* 50% de tamaño */
+  transition: max-width 0.3s ease;
 }
 header.shrink .tagline {
   font-size: 0.75rem; /* 50% del original */
+  transition: font-size 0.3s ease;
 }
 
     .panel{
@@ -152,6 +155,7 @@ header.shrink .tagline {
       height: auto;
       display: block;
       margin: 0 auto;
+      
     }
 
     .photo img{width:100%; height:100%; object-fit:cover; display:block}
@@ -424,6 +428,7 @@ header.shrink .tagline {
 
 </body>
 </html>
+
 
 
 
