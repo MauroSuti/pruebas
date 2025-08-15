@@ -153,13 +153,13 @@ header.shrink .tagline {
 }
 
 
-    .contribuciones-list{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:16px;
-      margin-top:12px;
-      justify-content:center;
-    }
+    .contribuciones-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* antes 1fr grande, ahora más chico */
+  gap: 12px;
+  margin-top: 12px;
+  justify-content: center;
+}
     
 .contribuciones{
       background:rgba(255,255,255,0.02);
@@ -341,12 +341,12 @@ header.shrink .tagline {
       
       <h3 class="contribuciones-titulo">Contribuciones especiales</h3>
      
-      <div class="contribuciones" style="background-image:url('elisa.jpg')">
+      <div class="contribuciones-list" style="background-image:url('elisa.jpg')">
           <h4>Elisa</h4>
           <p>Composición</p>
         </div>
 
-      <div class="contribuciones" style="background-image:url('lucia.jpg')">
+      <div class="contribuciones-list" style="background-image:url('lucia.jpg')">
           <h4>Lucia</h4>
           <p>Teclados en vivo</p>
         </div>
@@ -501,6 +501,7 @@ header.shrink .tagline {
 
 </body>
 </html>
+
 
 
 
