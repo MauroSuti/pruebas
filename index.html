@@ -129,16 +129,13 @@ header.shrink .tagline {
     }
     .panel.show{display:block}
 
-    .members-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-      margin-top: 12px;
-      justify-content: center;
-      max-width: calc(3 * 220px + 2 * 12px); /* ancho máximo = 3 columnas + espacios */
-      margin-left: auto;
-      margin-right: auto; /* centra el grid */
+    .members-list{ 
+      display:grid; 
+      grid-template-columns: 
+        repeat(3, 1fr); gap:12px; 
+      margin-top:12px; justify-content:center; 
     }
+    
     .member{
       background:rgba(255,255,255,0.02);
       padding:40px;
@@ -494,6 +491,7 @@ header.shrink .tagline {
 
 </body>
 </html>
+
 
 
 
