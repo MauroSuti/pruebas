@@ -32,23 +32,23 @@
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   padding-bottom: 40px;
-}
+  }
 
-   header {
-  padding: 28px 18px 12px;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(4px);
-  z-index: 10;
-  min-height: 240px; /* en vez de height fija */
-  transition: 
-    padding 0.4s ease-in-out, 
-    min-height 0.4s ease-in-out, 
-    backdrop-filter 0.4s ease-in-out, 
-    background 0.4s ease-in-out;
-}
+  header {
+    padding: 28px 18px 12px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    z-index: 10;
+    min-height: 240px; /* en vez de height fija */
+    transition: 
+      padding 0.4s ease-in-out, 
+      min-height 0.4s ease-in-out, 
+      backdrop-filter 0.4s ease-in-out, 
+      background 0.4s ease-in-out;
+    }
 
     h1.site-title{
       margin:0;
@@ -57,6 +57,7 @@
       color:var(--accent);
       text-shadow:0 4px 20px rgba(0,0,0,0.7);
     }
+    
     p.tagline{
       margin:6px 0 0;
       color:var(--muted);
@@ -70,6 +71,7 @@
       margin-top:16px;
       flex-wrap:wrap;
     }
+    
     .controls button{
       background:var(--glass);
       border:1px solid rgba(255,255,255,0.05);
@@ -80,6 +82,7 @@
       cursor:pointer;
       transition: all .18s ease;
     }
+    
     .controls button:hover{transform:translateY(-3px); box-shadow:0 6px 18px rgba(0,0,0,0.6)}
     .controls button.active{background:linear-gradient(90deg, rgba(198,40,40,0.15), rgba(198,40,40,0.06)); border-color:var(--accent)}
 
@@ -105,19 +108,19 @@
       transition: font-size 0.4s ease-in-out;
     }
 
-header.shrink {
-  padding: 14px 18px 6px;
-  min-height: 160px; /* se achica pero sigue visible */
-  backdrop-filter: blur(8px);
-}
+    header.shrink {
+      padding: 14px 18px 6px;
+      min-height: 160px; /* se achica pero sigue visible */
+      backdrop-filter: blur(8px);
+    }
 
-header.shrink .logo {
-  max-width: 125px; /* logo se reduce al 50% */
-}
+    header.shrink .logo {
+      max-width: 125px; /* logo se reduce al 50% */
+    }
 
-header.shrink .tagline {
-  font-size: 0.75rem; /* tagline más pequeño */
-}
+    header.shrink .tagline {
+      font-size: 0.75rem; /* tagline más pequeño */
+    }
 
     .panel{
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
@@ -127,6 +130,7 @@ header.shrink .tagline {
       margin-bottom:20px;
       display:none;
     }
+    
     .panel.show{display:block}
 
     .members-list{ 
@@ -149,21 +153,21 @@ header.shrink .tagline {
     .member p{margin:0; color:var(--muted); font-size:0.92rem; background:rgba(0,0,0,0.6); display:inline-block; padding:2px 6px; border-radius:4px;}
 
     .contribuciones-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* antes 1fr grande, ahora más chico */
-  gap: 12px;
-  margin-top: 12px;
-  justify-content: center;
-}
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* antes 1fr grande, ahora más chico */
+      gap: 12px;
+      margin-top: 12px;
+      justify-content: center;
+    }
     
-.contribuciones {
-  background: rgba(255,255,255,0.02);
-  padding: 8px;                /* antes 12px */
-  border-radius: 6px;          /* más pequeño */
-  text-align: center;
-  background-size: cover;
-  background-position: center;
-}
+    .contribuciones {
+      background: rgba(255,255,255,0.02);
+      padding: 8px;                /* antes 12px */
+      border-radius: 6px;          /* más pequeño */
+      text-align: center;
+      background-size: cover;
+      background-position: center;
+    }
     
     .contribuciones h4{margin:6px 0 2px; background:rgba(0,0,0,0.6); display:inline-block; padding:2px 6px; border-radius:4px;}
     .contribuciones p{margin:0; color:var(--muted); font-size:0.92rem; background:rgba(0,0,0,0.6); display:inline-block; padding:2px 6px; border-radius:4px;} 
@@ -171,7 +175,7 @@ header.shrink .tagline {
     .history-text {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.15rem; /* un poco más grande que el tamaño base */
-      line-height: 1.4;   /* menos interlineado */
+      line-height: 1;   /* menos interlineado */
       color: #dfe6e8;
     }
 
@@ -181,6 +185,7 @@ header.shrink .tagline {
       gap:12px;
       margin-top:12px;
     }
+    
     .photo{
       background:#111;
       border-radius:8px;
@@ -207,16 +212,19 @@ header.shrink .tagline {
       grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
       gap:16px;
     }
+    
     .merch-grid .item{
       background:rgba(255,255,255,0.02);
       border-radius:8px;
       padding:12px;
       text-align:center;
     }
+    
     .merch-grid .item img{
       max-width:100%;
       border-radius:6px;
     }
+    
     .buy-button{
       display:inline-block;
       margin-top:8px;
@@ -228,6 +236,7 @@ header.shrink .tagline {
       font-weight:bold;
       transition:transform 0.2s;
     }
+    
     .buy-button:hover{
       transform:scale(1.05);
     }
@@ -238,9 +247,11 @@ header.shrink .tagline {
       margin-top:12px; 
       font-size:0.9rem 
     }
+    
     .social-links{
       margin:12px 0;
     }
+    
     .social-links a img{
       width:28px;
       height:28px;
@@ -248,18 +259,19 @@ header.shrink .tagline {
       filter:invert(1);
       transition:transform 0.2s;
     }
+    
     .social-links a img:hover{
       transform:scale(1.2);
     }
 
    @media (max-width: 600px) {
-  header {
-    min-height: 280px; /* más alto en móviles verticales para la doble fila */
-  }
-  header.shrink {
-    min-height: 200px; /* achicado pero cómodo en vertical */
-  }
-}
+    header {
+      min-height: 280px; /* más alto en móviles verticales para la doble fila */
+      }
+    header.shrink {
+      min-height: 200px; /* achicado pero cómodo en vertical */
+      }
+    }
     
     @media (max-width: 600px){
       .members-list{
@@ -491,6 +503,7 @@ header.shrink .tagline {
 
 </body>
 </html>
+
 
 
 
