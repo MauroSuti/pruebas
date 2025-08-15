@@ -130,6 +130,12 @@
       margin-bottom:20px;
       display:none;
     }
+   
+    .panel h2 {
+        margin-top: 1px;     /* reduce espacio arriba */
+        margin-bottom: 8px;  /* reduce espacio abajo */
+    }
+    
     
     .panel.show{display:block}
 
@@ -264,7 +270,7 @@
       transform:scale(1.2);
     }
 
-   @media (max-width: 600px) {
+    @media (max-width: 600px) {
     header {
       min-height: 280px; /* más alto en móviles verticales para la doble fila */
       }
@@ -393,6 +399,7 @@
 
     <section id="contact" class="panel" tabindex="0">
       <h2>Contacto</h2>
+      <br>
       <form action="mailto:bandaauritri@gmail.com" method="post" enctype="text/plain">
         <label>Nombre:<br><input type="text" name="nombre"></label><br>
         <label>Email:<br><input type="email" name="email"></label><br>
@@ -503,10 +510,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
