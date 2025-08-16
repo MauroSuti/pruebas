@@ -487,27 +487,21 @@
       }
     });
 
-    document.addEventListener('keydown', (e)=>{
-      if(e.target.tagName === 'INPUT' || e.target.isContentEditable) return;
-      if(e.key.toLowerCase() === 'm') showPanel('members');
-      if(e.key.toLowerCase() === 'h') showPanel('history');
-      if(e.key.toLowerCase() === 'p') showPanel('photos');
-      if(e.key.toLowerCase() === 'c') showPanel('contact');
-    });
 
     window.addEventListener('scroll', () => {
-  const header = document.querySelector('header');
-  if (window.scrollY > 50) {
-    header.classList.add('shrink');
-  } else {
-    header.classList.remove('shrink');
-  }
-});
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('shrink');
+      } else {
+        header.classList.remove('shrink');
+     }
+    });
     
   </script>
 
 </body>
 </html>
+
 
 
 
