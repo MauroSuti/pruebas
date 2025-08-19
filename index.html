@@ -207,8 +207,32 @@
       max-width: 250px;
       height: auto;
       display: block;
-      margin: 0 auto;
-      
+      margin: 0 auto; 
+    }
+
+    .photo img{width:100%; height:100%; object-fit:cover; display:block}
+
+    /* Estilos del reproductor flotante (mínimo necesario) */
+    #floating-player{
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      z-index: 1000;
+      display: none;
+    }
+    #floating-player .close-btn{
+      position:absolute;
+      top:-10px;
+      right:-10px;
+      background:var(--accent);
+      color:#fff;
+      border:none;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      cursor:pointer;
+      font-weight:bold;
+      line-height:28px;
     }
 
     .soundcloud-floating {
@@ -223,9 +247,6 @@
       z-index: 1000;
       background: #000;
     }
-
-
-    .photo img{width:100%; height:100%; object-fit:cover; display:block}
 
     .merch-grid{
       display:grid;
@@ -461,36 +482,76 @@
     Creada con ❤ por Auritri
   </footer>
 
+   <!-- Contenedor (mínimo) para mantener el reproductor flotante y botón de cierre -->
+  <div id="floating-player" aria-live="polite">
+    <button id="floating-close" class="close-btn" aria-label="Cerrar reproductor">✖</button>
+    <!-- el iframe se moverá aquí cuando des Play -->
+  </div>
+
+  <!-- API de SoundCloud (debe ir fuera de cualquier <script> inline) -->
+  <script src="https://w.soundcloud.com/player/api.js"></script>
+
+  <!-- Script único (sin <script> anidados) -->
   <script>
-    const buttons = document.querySelectorAll('.controls button');
-    const panels = document.querySelectorAll('.panel');
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.controls button');
+      const panels = document.querySelectorAll('.panel');
 
-    function showPanel(id){
-      panels.forEach(p => { p.classList.toggle('show', p.id === id); });
-      buttons.forEach(b => b.classList.toggle('active', b.dataset.target === id));
-      const active = document.getElementById(id);
-      if(active){
-        active.classList.add('pulse');
-        setTimeout(()=> active.classList.remove('pulse'), 1000);
-        active.focus({preventScroll:true});
+      function showPanel(id){
+        panels.forEach(p => { p.classList.toggle('show', p.id === id); });
+        buttons.forEach(b => b.classList.toggle('active', b.dataset.target === id));
+        const active = document.getElementById(id);
+        if(active){
+          active.classList.add('pulse');
+          setTimeout(()=> active.classList.remove('pulse'), 1000);
+          active.focus({preventScroll:true});
+        }
       }
-    }
 
-    buttons.forEach(btn => btn.addEventListener('click', ()=> showPanel(btn.dataset.target)));
+      buttons.forEach(btn => btn.addEventListener('click', ()=> showPanel(btn.dataset.target)));
 
-    document.querySelector('.controls').addEventListener('keydown', (e)=>{
-      const idx = Array.from(buttons).findIndex(b => b.classList.contains('active'));
-      if(e.key === 'ArrowRight') buttons[(idx+1) % buttons.length].click();
-      if(e.key === 'ArrowLeft') buttons[(idx-1 + buttons.length) % buttons.length].click();
-    });
+      document.querySelector('.controls').addEventListener('keydown', (e)=>{
+        const idx = Array.from(buttons).findIndex(b => b.classList.contains('active'));
+        if(e.key === 'ArrowRight') buttons[(idx+1) % buttons.length].click();
+        if(e.key === 'ArrowLeft') buttons[(idx-1 + buttons.length) % buttons.length].click();
+      });
 
-    <script src="https://w.soundcloud.com/player/api.js"></script>
-    <script>
+      // --- Reproductor SoundCloud: mover a flotante al dar PLAY ---
       const iframe = document.getElementById('sc-player');
-      const scWidget = SC.Widget(iframe);
+      const floatBox = document.getElementById('floating-player');
+      const closeBtn = document.getElementById('floating-close');
+      const originalParent = iframe ? iframe.parentElement : null;
+      let widget = null;
+      let moved = false;
 
-      scWidget.bind(SC.Widget.Events.PLAY, function() {
-        iframe.classList.add('soundcloud-floating');
+      function setupWidget(){
+        if (!iframe || !window.SC || !SC.Widget) return false;
+        widget = SC.Widget(iframe);
+        widget.bind(SC.Widget.Events.PLAY, function() {
+          if (!moved) {
+            floatBox.style.display = 'block';
+            iframe.classList.add('soundcloud-floating');
+            floatBox.appendChild(iframe); // lo saca de #music (que puede ocultarse) y lo hace flotante
+            moved = true;
+          }
+        });
+        return true;
+      }
+
+      // Inicializa cuando la API esté lista
+      if (!setupWidget()) {
+        const wait = setInterval(() => {
+          if (setupWidget()) clearInterval(wait);
+        }, 150);
+      }
+
+      // Cerrar flotante: pausa y devuelve el iframe a su lugar original en la pestaña Música
+      closeBtn.addEventListener('click', () => {
+        try { widget && widget.pause(); } catch(e){}
+        iframe.classList.remove('soundcloud-floating');
+        floatBox.style.display = 'none';
+        if (originalParent) originalParent.appendChild(iframe);
+        moved = false;
       });
 
 
@@ -547,6 +608,7 @@
 
 </body>
 </html>
+
 
 
 
