@@ -509,23 +509,25 @@
     });
 
 
-    let lastScrollY = 0;
+    let isShrunk = false;
+
 window.addEventListener('scroll', () => {
-  requestAnimationFrame(() => {
-    const header = document.querySelector('header');
-    if (window.scrollY > 5 && lastScrollY <= 5) {
-      header.classList.add('shrink');
-    } else if (window.scrollY <= 5 && lastScrollY > 5) {
-      header.classList.remove('shrink');
-    }
-    lastScrollY = window.scrollY;
-  });
+  const header = document.querySelector('header');
+
+  if (window.scrollY > 5 && !isShrunk) {
+    header.classList.add('shrink');
+    isShrunk = true;
+  } else if (window.scrollY === 0 && isShrunk) {
+    header.classList.remove('shrink');
+    isShrunk = false;
+  }
 });
 
   </script>
 
 </body>
 </html>
+
 
 
 
