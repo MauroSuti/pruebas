@@ -508,25 +508,28 @@
       }
     });
 
-
-    let isShrunk = false;
+const header = document.querySelector('header');
+let isShrunk = false;
 
 window.addEventListener('scroll', () => {
-  const header = document.querySelector('header');
-
-  if (window.scrollY > 5 && !isShrunk) {
-    header.classList.add('shrink');
-    isShrunk = true;
-  } else if (window.scrollY === 0 && isShrunk) {
-    header.classList.remove('shrink');
-    isShrunk = false;
-  }
+  requestAnimationFrame(() => {
+    if (window.scrollY === 0) {
+      // Solo si estás arriba de todo, vuelve al tamaño original
+      header.classList.remove('shrink');
+      isShrunk = false;
+    } else if (!isShrunk) {
+      // Apenas se scrollea un poquito, se achica y queda fijo
+      header.classList.add('shrink');
+      isShrunk = true;
+    }
+  });
 });
-
+    
   </script>
 
 </body>
 </html>
+
 
 
 
