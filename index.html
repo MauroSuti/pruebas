@@ -513,7 +513,7 @@ let isShrunk = false;
 
 window.addEventListener('scroll', () => {
   requestAnimationFrame(() => {
-    if (window.scrollY > 1) {
+    if (window.scrollY === 0) {
       // Solo si estás arriba de todo, vuelve al tamaño original
       header.classList.remove('shrink');
       isShrunk = false;
@@ -529,6 +529,7 @@ window.addEventListener('scroll', () => {
 
 </body>
 </html>
+
 
 
 
