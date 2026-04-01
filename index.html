@@ -15,10 +15,6 @@
 
   <style>
 
-    html {
-    /* Reserva el espacio de la barra de scroll para que no mueva el contenido */
-    scrollbar-gutter: stable;
-}
     
     :root{
       --bg:#0b0b0c;
@@ -29,6 +25,7 @@
     }
     *{box-sizing:border-box}
     body {
+      overflow-x: hidden; /* Evita scroll horizontal por el ajuste */
   margin: 0;
   font-family: "Cinzel", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   background-color: black;
@@ -42,20 +39,29 @@
   }
 
   header {
+    /* --- TRUCO DE CENTRADO ABSOLUTO (Ignora el ancho de la barra de scroll) --- */
+    width: 100vw;
+    left: 50%;
+    margin-left: -50vw;
+    
+    /* --- COMPORTAMIENTO STICKY --- */
+    position: sticky; /* Priorizamos sticky para que se quede arriba */
+    top: 0;
+    z-index: 10;
+    
+    /* --- ESTILO Y ESPACIADO --- */
     padding: 28px 18px 12px;
     text-align: center;
-    position: sticky;
-    top: 0;
-    
     backdrop-filter: blur(2px);
-    z-index: 10;
-    min-height: 240px; /* en vez de height fija */
+    min-height: 240px; 
+    
+    /* --- TRANSICIONES --- */
     transition: 
       padding 0.4s ease-in-out, 
       min-height 0.4s ease-in-out, 
       backdrop-filter 0.4s ease-in-out, 
       background 0.4s ease-in-out;
-    }
+}
 
     h1.site-title{
       margin:0;
