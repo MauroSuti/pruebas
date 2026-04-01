@@ -25,8 +25,9 @@
     }
     *{box-sizing:border-box}
     body {
-      overflow-x: hidden; /* Evita scroll horizontal por el ajuste */
-  margin: 0;
+      margin: 0;
+    overflow-x: hidden;
+    width: 100%;
   font-family: "Cinzel", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   background-color: black;
             background-image: radial-gradient(circle at top right, #1e1e2e, #09090b);
@@ -38,14 +39,15 @@
   padding-bottom: 40px;
   }
 
-  header {
-    /* --- TRUCO DE CENTRADO ABSOLUTO (Ignora el ancho de la barra de scroll) --- */
-    width: 100vw;
-    left: 50%;
-    margin-left: -50vw;
+header {
+    /* --- CENTRADO ESTABLE --- */
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     
     /* --- COMPORTAMIENTO STICKY --- */
-    position: sticky; /* Priorizamos sticky para que se quede arriba */
+    position: sticky; 
     top: 0;
     z-index: 10;
     
@@ -62,7 +64,6 @@
       backdrop-filter 0.4s ease-in-out, 
       background 0.4s ease-in-out;
 }
-
     h1.site-title{
       margin:0;
       font-size:3rem;
