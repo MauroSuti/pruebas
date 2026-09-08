@@ -1,21 +1,16 @@
-ail<!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Auritri</title>
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
 
-  <!-- Fuente épica (Google Fonts) -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
-
-    
     :root{
       --bg:#0b0b0c;
       --panel:#0f1416;
@@ -26,44 +21,37 @@ ail<!doctype html>
     *{box-sizing:border-box}
     body {
       margin: 0;
-    overflow-x: hidden;
-    width: 100%;
-  font-family: "Cinzel", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background-color: black;
-            background-image: radial-gradient(circle at top right, #1e1e2e, #09090b);
-            color: var(--text-main);
-  color: #eee;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
-  padding-bottom: 40px;
-  }
+      overflow-x: hidden;
+      width: 100%;
+      font-family: "Cinzel", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background-color: black;
+      background-image: radial-gradient(circle at top right, #1e1e2e, #09090b);
+      color: #eee;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
 
-header {
-    /* --- CENTRADO ESTABLE --- */
-    width: 100%; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    header {
+      width: 100%; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: sticky; 
+      top: 0;
+      z-index: 10;
+      padding: 28px 18px 12px;
+      text-align: center;
+      backdrop-filter: blur(2px);
+      min-height: 240px; 
+      transition: 
+        padding 0.4s ease-in-out, 
+        min-height 0.4s ease-in-out, 
+        backdrop-filter 0.4s ease-in-out, 
+        background 0.4s ease-in-out;
+    }
     
-    /* --- COMPORTAMIENTO STICKY --- */
-    position: sticky; 
-    top: 0;
-    z-index: 10;
-    
-    /* --- ESTILO Y ESPACIADO --- */
-    padding: 28px 18px 12px;
-    text-align: center;
-    backdrop-filter: blur(2px);
-    min-height: 240px; 
-    
-    /* --- TRANSICIONES --- */
-    transition: 
-      padding 0.4s ease-in-out, 
-      min-height 0.4s ease-in-out, 
-      backdrop-filter 0.4s ease-in-out, 
-      background 0.4s ease-in-out;
-}
     h1.site-title{
       margin:0;
       font-size:3rem;
@@ -105,7 +93,7 @@ header {
       max-width:1100px;
       margin:10px auto;
       padding:22px;
-      padding-top: 20px; /* espacio para el header */
+      padding-top: 20px;
     }
 
     header .logo {
@@ -125,16 +113,16 @@ header {
 
     header.shrink {
       padding: 14px 18px 6px;
-      min-height: 160px; /* se achica pero sigue visible */
+      min-height: 160px;
       backdrop-filter: blur(8px);
     }
 
     header.shrink .logo {
-      max-width: 125px; /* logo se reduce al 50% */
+      max-width: 125px;
     }
 
     header.shrink .tagline {
-      font-size: 0.75rem; /* tagline más pequeño */
+      font-size: 0.75rem;
     }
 
     .panel{
@@ -147,18 +135,18 @@ header {
     }
    
     .panel h2 {
-        margin-top: 1px;     /* reduce espacio arriba */
-        margin-bottom: 8px;  /* reduce espacio abajo */
+      margin-top: 1px;
+      margin-bottom: 8px;
     }
-    
     
     .panel.show{display:block}
 
     .members-list{ 
       display:grid; 
-      grid-template-columns: 
-        repeat(2, 1fr); gap:12px; 
-      margin-top:12px; justify-content:center; 
+      grid-template-columns: repeat(2, 1fr); 
+      gap:12px; 
+      margin-top:12px; 
+      justify-content:center; 
     }
     
     .member{
@@ -175,7 +163,7 @@ header {
 
     .contribuciones-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* antes 1fr grande, ahora más chico */
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       gap: 12px;
       margin-top: 12px;
       justify-content: center;
@@ -183,8 +171,8 @@ header {
     
     .contribuciones {
       background: rgba(255,255,255,0.02);
-      padding: 8px;                /* antes 12px */
-      border-radius: 6px;          /* más pequeño */
+      padding: 8px;
+      border-radius: 6px;
       text-align: center;
       background-size: cover;
       background-position: center;
@@ -195,38 +183,86 @@ header {
 
     .history-text {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem; /* un poco más grande que el tamaño base */
-      line-height: 1.4;   /* menos interlineado */
+      font-size: 1.15rem;
+      line-height: 1.4;
       color: #dfe6e8;
     }
 
-    .gallery{
-      display:grid;
-      grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
-      gap:12px;
-      margin-top:12px;
+    /* ---- DESLIZADOR / CARRUSEL DE FOTOS ---- */
+    .gallery-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .gallery {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 10px 4px;
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .gallery::-webkit-scrollbar {
+      height: 6px;
+    }
+    .gallery::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+    }
+    .gallery::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
     }
     
-    .photo{
-      background:#111;
-      border-radius:8px;
-      overflow:hidden;
-      min-height:100px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
+    .photo {
+      flex: 0 0 280px;
+      height: 360px;
+      scroll-snap-align: center;
+      background: #111;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
     }
 
-    .logo {
-      max-width: 250px;
-      height: auto;
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
-      margin: 0 auto;
-      
     }
 
-    .photo img{width:100%; height:100%; object-fit:cover; display:block}
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(15, 20, 22, 0.85);
+      color: white;
+      border: 1px solid var(--accent);
+      font-size: 1.2rem;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .slider-btn:hover {
+      background: var(--accent);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .slider-btn.prev { left: -12px; }
+    .slider-btn.next { right: -12px; }
 
     .merch-grid{
       display:grid;
@@ -262,11 +298,18 @@ header {
       transform:scale(1.05);
     }
 
+    .contact-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 0;
+    }
+
     footer{ 
       text-align:center; 
-      color:var(white); 
+      color:#fff; 
       margin-top:12px; 
-      font-size:0.9rem 
+      font-size:0.9rem;
     }
     
     .social-links{
@@ -285,23 +328,23 @@ header {
     }
 
     @media (max-width: 600px) {
-    header {
-      min-height: 280px; /* más alto en móviles verticales para la doble fila */
+      header {
+        min-height: 280px;
       }
-    header.shrink {
-      min-height: 200px; /* achicado pero cómodo en vertical */
+      header.shrink {
+        min-height: 200px;
       }
-    }
-    
-    @media (max-width: 600px){
       .members-list{
         grid-template-columns: 1fr;
       }
-    }
-
-    @media (max-width:600px){
       h1.site-title{font-size:2rem}
       .controls button{padding:8px 12px}
+      .photo {
+        flex: 0 0 80%;
+        height: 280px;
+      }
+      .slider-btn.prev { left: 0; }
+      .slider-btn.next { right: 0; }
     }
 
     @keyframes flash {
@@ -345,7 +388,6 @@ header {
       <p class="history-text"></p>
       <br>
       <div class="members-list" id="membersList">
-
         <div class="member" style="background-image:url('fondo-lu.jpg')">
           <h4>Lu</h4> <br>
           <p>Vocalista</p>
@@ -360,13 +402,14 @@ header {
           <h4>Agustín</h4> <br>
           <p>Baterista</p>
         </div>
+
         <div class="member" style="background-image:url('fondo-mauro.jpg')">
           <h4>Mauro</h4> <br>
           <p>Bajista</p>
         </div>
       </div>
       
-     <div class="contribuciones-list" id="membersList">
+     <div class="contribuciones-list">
       <div class="contribuciones" style="background-image:url('elisa.jpg')">
           <h4>Elisa</h4> <br>
           <p>Composición</p>
@@ -376,12 +419,11 @@ header {
           <h4>Lucia</h4> <br>
           <p>Tecladista en vivo</p>
         </div> 
-      </div>     
+      </div>      
     </section>
 
     <section id="musica" class="panel" tabindex="0">
       <h2>Música</h2>
-      <!-- Reproductor SoundCloud embebido -->
       <div style="max-width: 100%; margin: 0 auto; text-align: center;">
         <iframe 
           width="100%" 
@@ -396,9 +438,11 @@ header {
 
     <section id="photos" class="panel" tabindex="0">
       <h2>Fotos</h2>
-      <p class="history-text"></p>
-      <div class="gallery" id="gallery">
-        <!-- Las imágenes se cargarán automáticamente desde GitHub -->
+      <div class="gallery-wrapper">
+        <button class="slider-btn prev" id="slidePrev" aria-label="Anterior">&#10094;</button>
+        <div class="gallery" id="gallery">
+          </div>
+        <button class="slider-btn next" id="slideNext" aria-label="Siguiente">&#10095;</button>
       </div>
     </section>
 
@@ -433,18 +477,20 @@ header {
       </div>
     </section>
 
- 
-
-      <div style="margin-top: 15px;">
+    <section id="contact" class="panel" tabindex="0">
+      <h2>Contacto</h2>
+      <div class="contact-container">
         <a href="https://wa.me/59896160371?text=Hola!%20Quería%20comunicarme%20con%20ustedes" 
            target="_blank" 
-           style="display:inline-flex; align-items:center; text-decoration:none; color:white; background:var(--accent); padding:8px 12px; border-radius:6px;">
-          <img src="icon-whatsapp.png" alt="WhatsApp" style="width:20px; height:20px; margin-right:8px;">
+           style="display:inline-flex; align-items:center; text-decoration:none; color:white; background:var(--accent); padding:12px 20px; border-radius:8px; font-weight: bold; transition: transform 0.2s;"
+           onmouseover="this.style.transform='scale(1.05)'"
+           onmouseout="this.style.transform='scale(1)'">
+          <img src="icon-whatsapp.png" alt="WhatsApp" style="width:24px; height:24px; margin-right:10px;">
           Contactar por WhatsApp
         </a>
       </div>
-     
-    </section>   
+    </section>
+    
   </main>
 
   <footer>
@@ -483,9 +529,9 @@ header {
 
     // ---- GALERÍA AUTOMÁTICA DESDE GITHUB ----
     const gallery = document.getElementById('gallery');
-    const user = 'MauroSuti'; // tu usuario de GitHub
-    const repo = 'pruebas';           // tu repo donde está la carpeta photos
-    const folder = '21-9';          // nombre de la carpeta con imágenes
+    const user = 'MauroSuti';
+    const repo = 'pruebas';
+    const folder = '21-9';
     const url = `https://api.github.com/repos/${user}/${repo}/contents/${folder}`;
 
     fetch(url)
@@ -497,7 +543,7 @@ header {
             div.className = 'photo';
             const img = document.createElement('img');
             img.src = file.download_url;
-            img.alt = ''; // no mostramos el nombre
+            img.alt = '';
             div.appendChild(img);
             gallery.appendChild(div);
           }
@@ -505,7 +551,15 @@ header {
       })
       .catch(err => console.error('Error cargando imágenes:', err));
 
-    // Código drag & drop
+    // ---- BOTONES DEL DESLIZADOR ----
+    document.getElementById('slidePrev').addEventListener('click', () => {
+      gallery.scrollBy({ left: -300, behavior: 'smooth' });
+    });
+    document.getElementById('slideNext').addEventListener('click', () => {
+      gallery.scrollBy({ left: 300, behavior: 'smooth' });
+    });
+
+    // Drag & drop para la galería
     ['dragenter','dragover','dragleave','drop'].forEach(ev => {
       gallery.addEventListener(ev, e => e.preventDefault());
     });
@@ -520,52 +574,21 @@ header {
       }
     });
 
-const header = document.querySelector('header');
-let isShrunk = false;
+    const header = document.querySelector('header');
+    let isShrunk = false;
 
-window.addEventListener('scroll', () => {
-  requestAnimationFrame(() => {
-    if (window.scrollY === 0) {
-      // Solo si estás arriba de todo, vuelve al tamaño original
-      header.classList.remove('shrink');
-      isShrunk = false;
-    } else if (!isShrunk) {
-      // Apenas se scrollea un poquito, se achica y queda fijo
-      header.classList.add('shrink');
-      isShrunk = true;
-    }
-  });
-});
-    
+    window.addEventListener('scroll', () => {
+      requestAnimationFrame(() => {
+        if (window.scrollY === 0) {
+          header.classList.remove('shrink');
+          isShrunk = false;
+        } else if (!isShrunk) {
+          header.classList.add('shrink');
+          isShrunk = true;
+        }
+      });
+    });
   </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
