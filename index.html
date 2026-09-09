@@ -226,44 +226,47 @@
 
     .photo {
       width: 100%;
-      height: 200px; /* Tamaño del espacio en la grilla */
+      height: 200px;
       position: relative;
       z-index: 1;
       border-radius: 8px;
-      /* NOTA: Asegúrate de NO tener 'overflow: hidden' aquí para que la foto pueda sobresalir libremente */
+
+      /* Flexbox centra la foto perfectamente en su celda sin saltos */
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .photo img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* En estado normal se recorta para mantener la grilla uniforme */
+      object-fit: cover;
       display: block;
       border-radius: 8px;
-      transition: all 0.25s ease-in-out;
+
+      /* Animamos únicamente la transformación y la sombra (evita saltos bruscos) */
+      transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
     }
 
-    /* ---- EFECTO HOVER: SILUETA Y FORMATO ORIGINAL ---- */
+    /* ---- EFECTO HOVER FLUIDO Y SIN SALTOS ---- */
     .photo:hover {
-      z-index: 20; /* Se eleva sobre las imágenes vecinas */
+      z-index: 20;
     }
 
     .photo:hover img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      
-      /* Al cambiar a auto, la imagen toma su proporción exacta (sin barras negras) */
+      /* Muestra el formato/proporción real de la foto sin deformar */
       width: auto;
       height: auto;
       
-      /* Límites para que se agrande un poco sobre su lugar sin exagerar */
-      max-width: 130%;   /* Si es apaisada/horizontal, se extiende un poco a los lados */
-      max-height: 250px;  /* Si es vertical, se extiende un poco hacia arriba y abajo */
-      
-      /* Sombra rodeando directamente la silueta de la imagen */
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(198, 40, 40, 0.4);
+      /* Crecimiento sutil sobre su celda */
+      max-width: 108%;
+      max-height: 215px;
+
+      /* Elevación suave */
+      transform: scale(1.02);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.85);
     }
+    
     .merch-grid{
       display:grid;
       grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
