@@ -571,7 +571,11 @@
       const div = document.createElement('div'); 
       div.className = 'photo';
       const img = document.createElement('img'); 
-      img.src = url; 
+      // Procesa la foto al vuelo: ajusta ancho a 600px, calidad al 75% y convierte a WebP liviano
+      img.src = `https://wsrv.nl/?url=${encodeURIComponent(file.download_url)}&w=600&q=75&output=webp`;
+      img.loading = 'lazy';   /* Carga diferida: solo descarga la foto cuando el usuario se acerca a ella */
+      img.decoding = 'async'; /* Decodifica sin congelar el desplazamiento */
+      
       img.alt = '';
       div.appendChild(img);
       gallery.prepend(div);
