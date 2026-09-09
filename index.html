@@ -346,16 +346,13 @@
       h1.site-title{font-size:2rem}
       .controls button{padding:8px 12px}
       
-      .gallery {
-        grid-template-columns: repeat(2, 1fr); /* 2 columnas en celulares para que se aprecien las fotos */
+    .gallery {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en celular */
         max-height: 450px;
       }
-      /* Ajuste alternado para 2 columnas en celular */
-      .photo:nth-child(4n+1),
-      .photo:nth-child(4n+4) { height: 200px; }
-      
-      .photo:nth-child(4n+2),
-      .photo:nth-child(4n+3) { height: 140px; }
+      .photo {
+        height: 150px; /* Un tamaño uniforme más cómodo para la pantalla del celular */
+      }
     }
 
     @keyframes flash {
