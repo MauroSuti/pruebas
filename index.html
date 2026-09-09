@@ -188,29 +188,33 @@
       color: #dfe6e8;
     }
 
-/* ---- DESLIZADOR EN DOBLE FILA / COLUMNA DINÁMICA ---- */
+/* ---- DESLIZADOR VERTICAL (4 COLUMNAS MOSAICO) ---- */
     .gallery-wrapper {
       position: relative;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      margin-top: 12px;
+      margin: 20px 0;
+      padding: 25px 0; /* Espacio para los botones arriba y abajo */
     }
 
     .gallery {
       display: grid;
-      grid-template-rows: auto auto; /* Define 2 filas por columna */
-      grid-auto-flow: column;       /* Llena primero arriba-abajo, luego pasa a la derecha */
+      grid-template-columns: repeat(4, 1fr); /* 4 Columnas horizontales */
       gap: 12px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
+      max-height: 520px; /* Altura visible del deslizador vertical */
+      overflow-y: auto;  /* Desplazamiento de arriba a abajo */
+      overflow-x: hidden;
       scroll-behavior: smooth;
-      padding: 10px 4px;
+      padding: 10px;
       width: 100%;
+      align-items: center; /* Centra las fotos verticalmente en su celda para resaltar el ritmo */
       -webkit-overflow-scrolling: touch;
     }
 
+    /* Personalización de la barra de scroll vertical */
     .gallery::-webkit-scrollbar {
-      height: 6px;
+      width: 6px;
     }
     .gallery::-webkit-scrollbar-track {
       background: rgba(255,255,255,0.05);
@@ -222,22 +226,29 @@
     }
 
     .photo {
-      width: 220px; /* Ancho de la columna */
-      scroll-snap-align: start;
+      width: 100%;
       background: #111;
       border-radius: 8px;
       overflow: hidden;
       position: relative;
     }
 
-    /* Foto IMPAR (1, 3, 5... Arriba) - Más grande */
-    .photo:nth-child(odd) {
+    /* FOTOS GRANDES:
+       Fila 1 (1 y 3) | Fila 2 (6 y 8) */
+    .photo:nth-child(8n+1),
+    .photo:nth-child(8n+3),
+    .photo:nth-child(8n+6),
+    .photo:nth-child(8n+8) {
       height: 240px;
     }
 
-    /* Foto PAR (2, 4, 6... Abajo) - Un poco más pequeña */
-    .photo:nth-child(even) {
-      height: 175px;
+    /* FOTOS CHICAS:
+       Fila 1 (2 y 4) | Fila 2 (5 y 7) */
+    .photo:nth-child(8n+2),
+    .photo:nth-child(8n+4),
+    .photo:nth-child(8n+5),
+    .photo:nth-child(8n+7) {
+      height: 160px;
     }
 
     .photo img {
@@ -247,16 +258,17 @@
       display: block;
     }
 
+    /* BOTONES DE NAVEGACIÓN ARRIBA Y ABAJO */
     .slider-btn {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(15, 20, 22, 0.85);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 20, 22, 0.9);
       color: white;
       border: 1px solid var(--accent);
-      font-size: 1.2rem;
-      width: 38px;
-      height: 38px;
+      font-size: 1rem;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       cursor: pointer;
       z-index: 5;
@@ -269,11 +281,11 @@
 
     .slider-btn:hover {
       background: var(--accent);
-      transform: translateY(-50%) scale(1.1);
+      transform: translateX(-50%) scale(1.1);
     }
 
-    .slider-btn.prev { left: -12px; }
-    .slider-btn.next { right: -12px; }
+    .slider-btn.prev { top: -10px; }  /* Botón arriba */
+    .slider-btn.next { bottom: -10px; } /* Botón abajo */
 
     .merch-grid{
       display:grid;
@@ -351,17 +363,16 @@
       h1.site-title{font-size:2rem}
       .controls button{padding:8px 12px}
       
-      .photo {
-        width: 160px; /* Columnas más estrechas en celular */
+      .gallery {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en celulares para que se aprecien las fotos */
+        max-height: 450px;
       }
-      .photo:nth-child(odd) {
-        height: 190px; /* Altura foto superior */
-      }
-      .photo:nth-child(even) {
-        height: 140px; /* Altura foto inferior */
-      }
-      .slider-btn.prev { left: 0; }
-      .slider-btn.next { right: 0; }
+      /* Ajuste alternado para 2 columnas en celular */
+      .photo:nth-child(4n+1),
+      .photo:nth-child(4n+4) { height: 200px; }
+      
+      .photo:nth-child(4n+2),
+      .photo:nth-child(4n+3) { height: 140px; }
     }
 
     @keyframes flash {
@@ -456,10 +467,11 @@
     <section id="photos" class="panel" tabindex="0">
       <h2>Fotos</h2>
       <div class="gallery-wrapper">
-        <button class="slider-btn prev" id="slidePrev" aria-label="Anterior">&#10094;</button>
+        <button class="slider-btn prev" id="slidePrev" aria-label="Subir">&#9650;</button>
         <div class="gallery" id="gallery">
-          </div>
-        <button class="slider-btn next" id="slideNext" aria-label="Siguiente">&#10095;</button>
+          <!-- Las imágenes se cargarán automáticamente desde GitHub -->
+        </div>
+        <button class="slider-btn next" id="slideNext" aria-label="Bajar">&#9660;</button>
       </div>
     </section>
 
@@ -521,94 +533,99 @@
     Creada con ❤ por Auritri
   </footer>
 
-  <script>
-    const buttons = document.querySelectorAll('.controls button');
-    const panels = document.querySelectorAll('.panel');
+<script>
+  // ---- 1. NAVEGACIÓN POR PESTAÑAS Y TECLADO ----
+  const buttons = document.querySelectorAll('.controls button');
+  const panels = document.querySelectorAll('.panel');
 
-    function showPanel(id){
-      panels.forEach(p => { p.classList.toggle('show', p.id === id); });
-      buttons.forEach(b => b.classList.toggle('active', b.dataset.target === id));
-      const active = document.getElementById(id);
-      if(active){
-        active.classList.add('pulse');
-        setTimeout(()=> active.classList.remove('pulse'), 1000);
-        active.focus({preventScroll:true});
-      }
+  function showPanel(id){
+    panels.forEach(p => { p.classList.toggle('show', p.id === id); });
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.target === id));
+    const active = document.getElementById(id);
+    if(active){
+      active.classList.add('pulse');
+      setTimeout(()=> active.classList.remove('pulse'), 1000);
+      active.focus({preventScroll:true});
     }
+  }
 
-    buttons.forEach(btn => btn.addEventListener('click', ()=> showPanel(btn.dataset.target)));
+  buttons.forEach(btn => btn.addEventListener('click', ()=> showPanel(btn.dataset.target)));
 
-    document.querySelector('.controls').addEventListener('keydown', (e)=>{
-      const idx = Array.from(buttons).findIndex(b => b.classList.contains('active'));
-      if(e.key === 'ArrowRight') buttons[(idx+1) % buttons.length].click();
-      if(e.key === 'ArrowLeft') buttons[(idx-1 + buttons.length) % buttons.length].click();
-    });
+  document.querySelector('.controls').addEventListener('keydown', (e)=>{
+    const idx = Array.from(buttons).findIndex(b => b.classList.contains('active'));
+    if(e.key === 'ArrowRight') buttons[(idx+1) % buttons.length].click();
+    if(e.key === 'ArrowLeft') buttons[(idx-1 + buttons.length) % buttons.length].click();
+  });
 
-// ---- GALERÍA AUTOMÁTICA DESDE GITHUB (ORDEN INVERSO) ----
-    const gallery = document.getElementById('gallery');
-    const user = 'MauroSuti';
-    const repo = 'pruebas';
-    const folder = 'fotos';
-    const url = `https://api.github.com/repos/${user}/${repo}/contents/${folder}`;
+  // ---- 2. GALERÍA AUTOMÁTICA DESDE GITHUB (ORDEN INVERSO) ----
+  const gallery = document.getElementById('gallery');
+  const user = 'MauroSuti';
+  const repo = 'pruebas';
+  const folder = '21-9';
+  const url = `https://api.github.com/repos/${user}/${repo}/contents/${folder}`;
 
-    fetch(url)
-      .then(res => res.json())
-      .then(files => {
-        // Ordenamos de mayor a menor / Z a A
-        files.sort((a, b) => b.name.localeCompare(a.name, undefined, { numeric: true, sensitivity: 'base' }));
+  fetch(url)
+    .then(res => res.json())
+    .then(files => {
+      // Orden alfabético y numérico inverso (de mayor a menor)
+      files.sort((a, b) => b.name.localeCompare(a.name, undefined, { numeric: true, sensitivity: 'base' }));
 
-        files.forEach(file => {
-          if(file.type === 'file' && /\.(jpe?g|png|gif|webp)$/i.test(file.name)){
-            const div = document.createElement('div');
-            div.className = 'photo';
-            const img = document.createElement('img');
-            img.src = file.download_url;
-            img.alt = '';
-            div.appendChild(img);
-            gallery.appendChild(div);
-          }
-        });
-      })
-      .catch(err => console.error('Error cargando imágenes:', err));
-
-    // ---- BOTONES DEL DESLIZADOR ----
-    document.getElementById('slidePrev').addEventListener('click', () => {
-      gallery.scrollBy({ left: -300, behavior: 'smooth' });
-    });
-    document.getElementById('slideNext').addEventListener('click', () => {
-      gallery.scrollBy({ left: 300, behavior: 'smooth' });
-    });
-
-    // Drag & drop para la galería
-    ['dragenter','dragover','dragleave','drop'].forEach(ev => {
-      gallery.addEventListener(ev, e => e.preventDefault());
-    });
-    gallery.addEventListener('drop', async (e)=>{
-      const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
-      for(const f of files){
-        const url = URL.createObjectURL(f);
-        const div = document.createElement('div'); div.className='photo';
-        const img = document.createElement('img'); img.src = url; img.alt = '';
-        div.appendChild(img);
-        gallery.prepend(div);
-      }
-    });
-
-    const header = document.querySelector('header');
-    let isShrunk = false;
-
-    window.addEventListener('scroll', () => {
-      requestAnimationFrame(() => {
-        if (window.scrollY === 0) {
-          header.classList.remove('shrink');
-          isShrunk = false;
-        } else if (!isShrunk) {
-          header.classList.add('shrink');
-          isShrunk = true;
+      files.forEach(file => {
+        if(file.type === 'file' && /\.(jpe?g|png|gif|webp)$/i.test(file.name)){
+          const div = document.createElement('div');
+          div.className = 'photo';
+          const img = document.createElement('img');
+          img.src = file.download_url;
+          img.alt = '';
+          div.appendChild(img);
+          gallery.appendChild(div);
         }
       });
+    })
+    .catch(err => console.error('Error cargando imágenes:', err));
+
+  // ---- 3. BOTONES DEL DESLIZADOR VERTICAL ----
+  document.getElementById('slidePrev').addEventListener('click', () => {
+    gallery.scrollBy({ top: -300, behavior: 'smooth' });
+  });
+  document.getElementById('slideNext').addEventListener('click', () => {
+    gallery.scrollBy({ top: 300, behavior: 'smooth' });
+  });
+
+  // ---- 4. VISTA PREVIA DRAG & DROP ----
+  ['dragenter','dragover','dragleave','drop'].forEach(ev => {
+    gallery.addEventListener(ev, e => e.preventDefault());
+  });
+  gallery.addEventListener('drop', async (e)=>{
+    const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+    for(const f of files){
+      const url = URL.createObjectURL(f);
+      const div = document.createElement('div'); 
+      div.className = 'photo';
+      const img = document.createElement('img'); 
+      img.src = url; 
+      img.alt = '';
+      div.appendChild(img);
+      gallery.prepend(div);
+    }
+  });
+
+  // ---- 5. EFECTO SHRINK EN EL HEADER AL HACER SCROLL ----
+  const header = document.querySelector('header');
+  let isShrunk = false;
+
+  window.addEventListener('scroll', () => {
+    requestAnimationFrame(() => {
+      if (window.scrollY === 0) {
+        header.classList.remove('shrink');
+        isShrunk = false;
+      } else if (!isShrunk) {
+        header.classList.add('shrink');
+        isShrunk = true;
+      }
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>
